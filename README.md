@@ -7,25 +7,25 @@ The project architecture follows modular approach where the logical components a
 
 
 ## Modules
-•	app
-•	log-sdk
-•	log-cache
-•	log-network
-•	log-core
-•	test
+•	app <br />
+•	log-sdk <br />
+•	log-cache <br />
+•	log-network <br />
+•	log-core <br />
+•	test <br />
 
 
 ## app
 
-This is sample android app with UI having **Send** button.  
-On each start of app, the **LogApi** gets initialized.  
+This is sample android app with UI having **Send** button.  <br />
+On each start of app, the **LogApi** gets initialized.  <br />
 On click of this button, the current time (seconds of a minute)  will get posted to **log-sdk** via **LogApi.send()** 
 
 
 ## log-sdk
 
-This is Android Library which exposes the LogApi handle.  It exposes the following APIs – 
-**init**  - It initializes the SDK and also process any pending events available in cache.
+This is Android Library which exposes the LogApi handle.  It exposes the following APIs – <br />
+**init**  - It initializes the SDK and also process any pending events available in cache. <br />
 **send** – It receives the user event as current time in seconds, saves it in the cache and then process all pending events available in cache synchronously in the order of arrival.  It also rejects any duplicate events (reported at the same second of that minute)
 
 
@@ -36,7 +36,7 @@ This is Android Library with allows saving of event to process, deleting the pro
 
 ## log-network
 
-This is Android Library which allows posting the event to server and returning the server response.  It uses the Android *HttpsURLConnection* for HTTP Post implemtation.
+This is Android Library which allows posting the event to server and returning the server response.  It uses the Android *HttpsURLConnection* for HTTP Post implementation.
 
 
 ## log-core
