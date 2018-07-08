@@ -49,6 +49,10 @@ This is Android Library which intent to implement all the classes and methods, w
 This is test app which intent to cover all possible **Unit Tests** and **Instrumentation Tests** for all the modules.
 
 
+## FLOW
+
+![alt text](BlockDiagram.png)
+
 ## Environment – 
 
 •	Android Studio 3.1
@@ -56,5 +60,5 @@ This is test app which intent to cover all possible **Unit Tests** and **Instrum
 
 ## Note - 
 
-•	This project can be enhanced further by API documentation and more test cases.
+•	This project can be enhanced further by API documentation and more test cases. <br />
 •	The two application package – app & test shares the same content provider name, so they are mutually exclusive.  So, **uninstall** one of them while installing other.
