@@ -4,18 +4,28 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.suhane.lib_core.event.Event;
-
 import com.suhane.lib_cache.db.EventDbContract.PendingEventsEntry;
-import com.suhane.lib_core.result.Result;
+import com.suhane.lib_cache.prefs.LoggedEvents;
+import com.suhane.lib_core.event.Event;
 import com.suhane.lib_core.utils.EventUtils;
+import com.suhane.lib_core.utils.TimeUtils;
+
+import java.util.Set;
 
 public class CacheImpl implements Cache{
 
     Context context;
 
+    Set<String> loggedEvents;
+
     public CacheImpl(Context context) {
         this.context = context;
+    }
+
+    @Override
+    public boolean init() {
+        loggedEvents = new LoggedEvents(context).getLoggedEvents();
+        return true;
     }
 
     @Override
@@ -40,8 +50,8 @@ public class CacheImpl implements Cache{
         Cursor cursor = context.getContentResolver().query(
                 PendingEventsEntry.CONTENT_URI,
                 new String[]{PendingEventsEntry.COLUMN_EVENT_TIME},
-                null,
-                null,
+                null,     // events are stored in the order they have occurred
+                null,  // so selection criteria can be skipped
                 PendingEventsEntry.COLUMN_EVENT_TIME);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -77,4 +87,22 @@ public class CacheImpl implements Cache{
                 null);
         return (cursor!=null && cursor.moveToFirst()==true);
     }
+
+    @Override
+    public boolean isDuplicate(Event event) {
+
+        if (loggedEvents != null ) {
+            String eventSeconds = TimeUtils.getSecondInAMinute(event.getTimeInSec());
+            if (eventSeconds != null && !eventSeconds.isEmpty()) {
+                if (!loggedEvents.isEmpty() && loggedEvents.contains(eventSeconds))
+                    return true;
+                else {
+                    loggedEvents.add(eventSeconds);
+                    new LoggedEvents(context).setLoggedEvents(loggedEvents);
+                }
+            }
+        }
+        return false;
+    }
+
 }

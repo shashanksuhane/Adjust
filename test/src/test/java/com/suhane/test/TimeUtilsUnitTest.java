@@ -21,4 +21,16 @@ public class TimeUtilsUnitTest {
         assertNotNull(sec);
         assertFalse(sec.isEmpty());
     }
+
+    @Test
+    public void test_getRetryTimeInSec_valid() {
+        long retryInSec = TimeUtils.getRetryTimeInSec(5);
+        assertEquals(12, retryInSec);
+    }
+
+    @Test
+    public void test_getRetryTimeInSec_maxlimit() {
+        long retryInSec = TimeUtils.getRetryTimeInSec(100);
+        assertEquals(10*60, retryInSec);
+    }
 }

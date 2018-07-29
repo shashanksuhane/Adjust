@@ -40,6 +40,7 @@ public class LogApiInstruTest {
     @Test
     public void test_send_duplicate_event() {
         LogApi api = new LogApiImpl(InstrumentationRegistry.getTargetContext());
+        api.init();
         long currentTimeInSec = System.currentTimeMillis()/1000;
         Result result = api.send(currentTimeInSec);
         assertTrue(result.isSuccess());
