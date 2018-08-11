@@ -1,4 +1,4 @@
-# Adjust
+# Event Tracking SDK
 This project intent to implement the Android SDK which receives the user event and post it to server synchronously
 
 ## Approach
